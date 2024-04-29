@@ -5,19 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TankBuddy"
         mc:Ignorable="d"
-        Title="TankBuddy | Startscherm" SizeToContent="Height" Width="800" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="TankBuddy | Startscherm" SizeToContent="Height" MinWidth="600" Width="800" Loaded="Window_Loaded" Closing="Window_Closing">
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
         <Grid>
             <Image Source="/Logo.jpg" Stretch="UniformToFill" Opacity="0.3">
                 <Image.Effect>
                     <BlurEffect Radius="15"/>
-                    <!-- De waarde van Radius bepaalt de mate van vervaging -->
                 </Image.Effect>
             </Image>
 
             <StackPanel>
                 <GroupBox 
-                    Name="grpbxToevoegen" Header="Voeg een tankbeurt toe" Margin="5" BorderBrush="Black" FontFamily="Montserrat" 
+                    Name="grpbxToevoegen" Header="Voeg een tankbeurt toe" Margin="10" BorderBrush="Black" FontFamily="Montserrat" 
                     FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1">
 
                     <StackPanel>
@@ -27,6 +26,7 @@
                             <TextBlock Text="Liters" FontSize="15" Width="75" Margin="15,0,0,0"></TextBlock>
                             <TextBlock Text="Prijs/L (€/L)" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
                             <TextBlock Text="Datum" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
+                            <TextBlock Text="Ø (L/100km)" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
                         </StackPanel>
                         
                         <StackPanel Orientation="Horizontal">
@@ -34,11 +34,25 @@
                             <TextBox Name="txbLiters" Width="75" Margin="15,0,0,0">...</TextBox>
                             <TextBox Name="txbPrijsLiter" Width="100" Margin="15,0,0,0">...</TextBox>
                             <TextBox Name="txbDatum" Width="100" Margin="15,0,0,0">...</TextBox>
+                            <TextBox Name="txbVerbruik" Width="100" Margin="15,0,0,0">...</TextBox>
                         </StackPanel>
                         
                     </StackPanel>
                     
-                     
+                </GroupBox>
+
+                <GroupBox 
+                    Name="grpbxGeschiedenis" Header="Tankgeschiedenis" Margin="10" BorderBrush="Black" FontFamily="Montserrat" 
+                    FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1">
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Voertuig" FontSize="15" Width="75" Margin="15,0,0,0"></TextBlock>
+                        <TextBlock Text="Liters" FontSize="15" Width="75" Margin="15,0,0,0"></TextBlock>
+                        <TextBlock Text="Prijs/L (€/L)" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
+                        <TextBlock Text="Datum" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
+                        <TextBlock Text="Ø (L/100km)" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
+                    </StackPanel>
+                    
                 </GroupBox>
             </StackPanel>
             
