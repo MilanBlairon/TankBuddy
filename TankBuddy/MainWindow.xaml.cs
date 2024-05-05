@@ -1,6 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using HtmlAgilityPack;
+using Newtonsoft.Json;
 using System.IO;
 using System.Windows;
 
@@ -9,10 +8,12 @@ namespace TankBuddy
     public partial class MainWindow : Window
     {
         private const string bestandsnaam = "tankgeschiedenis.json";
+        private List<string> nummerplaten = new List<string>(); // Nieuwe lijst voor nummerplaten
 
         public MainWindow()
         {
             InitializeComponent();
+            ActuelePrijsEuro95();
 
             // Lees bestaande gegevens uit het bestand
             if (File.Exists(bestandsnaam))
@@ -20,10 +21,64 @@ namespace TankBuddy
                 LeesTankGeschiedenis();
             }
 
+            // Voeg nummerplaten toe aan List<string>
+            VoegNummerplatenToe("Nummerplaat 1");
+            VoegNummerplatenToe("Nummerplaat 2");
+            VoegNummerplatenToe("Nummerplaat 3");
+            VoegNummerplatenToe("Nummerplaat 4");
+            VoegNummerplatenToe("Nummerplaat 6");
+
             // Voeg nummerplaten toe aan ComboBox
-            cbxVoertuig.Items.Add("Nummerplaat 1");
-            cbxVoertuig.Items.Add("Nummerplaat 2");
-            cbxVoertuig.Items.Add("Nummerplaat 3");
+            cbxVoertuig.ItemsSource = nummerplaten;
+
+            // Voeg brandstoffen toe aan ComboBox cbxBrandstof
+            cbxBrandstof.Items.Add("Diesel");
+            cbxBrandstof.Items.Add("Euro 95");
+            cbxBrandstof.Items.Add("Euro 98");
+            cbxBrandstof.Items.Add("Euro 102");
+        }
+
+
+        private void ActuelePrijsEuro95()
+        {
+            try
+            {
+                // URL van de website waaruit je de tankprijzen wilt halen
+                string url = "https://carbu.com/belgie//liste-stations-service/E10/Izegem/8870/BE_foc_2503/76";
+
+                // HTML-document laden van de URL
+                HtmlWeb web = new HtmlWeb();
+                HtmlDocument document = web.Load(url);
+
+                // XPath-query om de elementen te selecteren die de tankprijzen bevatten
+                string xpathQuery = "/html/body/main/section/div/div/div/div/div[1]/div[2]/div/div/div/div/div[5]/span[2]";
+
+                // Selecteer het eerste element dat de tankprijs bevat
+                HtmlNode priceNode = document.DocumentNode.SelectSingleNode(xpathQuery);
+
+                // Als het element is gevonden, haal de prijs op en stel deze in op de Label
+                if (priceNode != null)
+                {
+                    string tankPrijs = priceNode.InnerText.Trim();
+                    // Vervang "&euro;" door het euroteken en voeg de juiste opmaak toe
+                    tankPrijs = tankPrijs.Replace("&euro;", "€");
+                    lblActuelePrijsEuro95.Content = "Euro 95: " + tankPrijs;
+                }
+                else
+                {
+                    lblActuelePrijsEuro95.Content = "Tankprijs niet gevonden";
+                }
+            }
+            catch (Exception ex)
+            {
+                lblActuelePrijsEuro95.Content = "Fout bij het ophalen van tankprijzen: " + ex.Message;
+            }
+        }
+
+
+        private void VoegNummerplatenToe(string nummerplaat)
+        {
+            nummerplaten.Add(nummerplaat);
         }
 
         private void LeesTankGeschiedenis()
@@ -64,7 +119,8 @@ namespace TankBuddy
                         Liters = double.Parse(txbLiters.Text),
                         PrijsPerLiter = double.Parse(txbPrijsLiter.Text),
                         Datum = DateTime.Parse(txbDatum.Text),
-                        Verbruik = double.Parse(txbVerbruik.Text)
+                        Verbruik = double.Parse(txbVerbruik.Text),
+                        Brandstof = cbxBrandstof.SelectedItem.ToString() // Brandstof uit ComboBox
                     };
 
                     // Voeg tank toe aan geschiedenis
@@ -90,7 +146,7 @@ namespace TankBuddy
         private void VoegToeAanGeschiedenis(Tank tank)
         {
             // Voeg tank toe aan ListBox
-            lstGeschiedenis.Items.Add($"{tank.Voertuig} - {tank.Liters}L - €{tank.PrijsPerLiter}/L - {tank.Datum.ToString("dd/MM/yyyy")} - {tank.Verbruik}L/100km");
+            lstGeschiedenis.Items.Add($"{tank.Voertuig} - {tank.Liters}L - €{tank.PrijsPerLiter}/L - {tank.Datum.ToString("dd/MM/yyyy")} - {tank.Verbruik}L/100km - {tank.Brandstof}");
         }
 
         private void SchrijfNaarBestand(string data)
@@ -116,5 +172,6 @@ namespace TankBuddy
         public double PrijsPerLiter { get; set; }
         public DateTime Datum { get; set; }
         public double Verbruik { get; set; }
+        public string Brandstof { get; set; }
     }
 }
