@@ -1,0 +1,32 @@
+[
+  {
+    "Datum": "05-05-2024",
+    "Brandstof": "Diesel",
+    "Prijs": "1,660"
+  },
+  {
+    "Datum": "05-05-2024",
+    "Brandstof": "Euro95",
+    "Prijs": "1,677"
+  },
+  {
+    "Datum": "05-05-2024",
+    "Brandstof": "Euro98",
+    "Prijs": "1,822"
+  },
+  {
+    "Datum": "06-05-2024",
+    "Brandstof": "Euro95",
+    "Prijs": "1,677"
+  },
+  {
+    "Datum": "06-05-2024",
+    "Brandstof": "Euro98",
+    "Prijs": "1,822"
+  },
+  {
+    "Datum": "06-05-2024",
+    "Brandstof": "Diesel",
+    "Prijs": "1,660"
+  }
+]

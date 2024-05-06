@@ -66,16 +66,29 @@
                         <StackPanel>
                             <ListBox x:Name="lstGeschiedenis" Margin="10"/>
                         </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <!-- Voeg knoppen toe voor "terug" en "volgende" -->
+                            <Button Content="Terug" Margin="5"/>
+                            <Button Content="Volgende" Margin="5"/>
+                        </StackPanel>
+
                     </StackPanel>
 
                 </GroupBox>
 
                 <GroupBox 
-                    Name="grpbxActuelePrijzen" Header="Actuele prijzen Dats24" Margin="10" BorderBrush="Black" FontFamily="Montserrat" 
+                    Name="grpbxActuelePrijzen" Header="Actuele prijzen Dats24 Izegem" Margin="10" BorderBrush="Black" FontFamily="Montserrat" 
                     FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1">
-                    <Label Name="lblActuelePrijsEuro95"></Label>
+
+                    <StackPanel>
+                        <Label Name="lblActuelePrijsEuro95"></Label>
+                        <Label Name="lblActuelePrijsEuro98"></Label>
+                        <Label Name="lblActuelePrijsDiesel"></Label>
+                    </StackPanel>
+
                 </GroupBox>
-                
+
 
             </StackPanel>
 

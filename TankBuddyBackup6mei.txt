@@ -1,4 +1,4 @@
-﻿using HtmlAgilityPack;
+using HtmlAgilityPack;
 using Newtonsoft.Json;
 using System.IO;
 using System.Windows;
@@ -40,9 +40,6 @@ namespace TankBuddy
             cbxBrandstof.Items.Add("Euro 98");
             cbxBrandstof.Items.Add("Euro 102");
         }
-
-
-
 
         private void ActuelePrijzen()
         {
@@ -210,22 +207,8 @@ namespace TankBuddy
         {
             // Voeg tank toe aan ListBox
             lstGeschiedenis.Items.Add($"{tank.Voertuig} - {tank.Liters}L - €{tank.PrijsPerLiter}/L - {tank.Datum.ToString("dd/MM/yyyy")} - {tank.Verbruik}L/100km - {tank.Brandstof}");
-            // Beperk het aantal items in de ListBox tot de laatste 5
-            TrimListBoxItems();
         }
 
-        private void TrimListBoxItems()
-        {
-            // Controleer of er meer dan 5 items zijn
-            if (lstGeschiedenis.Items.Count > 5)
-            {
-                // Verwijder de eerste items totdat er nog 5 over zijn
-                while (lstGeschiedenis.Items.Count > 5)
-                {
-                    lstGeschiedenis.Items.RemoveAt(0);
-                }
-            }
-        }
         private void SchrijfNaarBestand(string data)
         {
             try
@@ -241,7 +224,7 @@ namespace TankBuddy
             }
         }
     }
-
+    
     public class Tank
     {
         public string Voertuig { get; set; }
@@ -253,3 +236,100 @@ namespace TankBuddy
     }
 }
 
+<Window x:Class="TankBuddy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TankBuddy"
+        mc:Ignorable="d"
+        Title="TankBuddy | Startscherm" SizeToContent="Height" MinWidth="800" Width="900">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <Grid>
+
+            <Image Source="/Logo.jpg" Stretch="UniformToFill" Opacity="0.3">
+
+                <Image.Effect>
+                    <BlurEffect Radius="15"/>
+                </Image.Effect>
+
+            </Image>
+
+            <StackPanel>
+                <GroupBox 
+                    Name="grpbxToevoegen" Header="Voeg een tankbeurt toe" Margin="10" BorderBrush="Black" FontFamily="Montserrat" 
+                    FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1">
+
+                    <StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="Voertuig" FontSize="15" Width="75" Margin="15,0,0,0"></TextBlock>
+                            <TextBlock Text="Liters" FontSize="15" Width="75" Margin="15,0,0,0"></TextBlock>
+                            <TextBlock Text="Prijs/L (€/L)" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
+                            <TextBlock Text="Datum" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
+                            <TextBlock Text="Ø (L/100km)" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
+                            <TextBlock Text="Brandstof" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+
+                            <ComboBox Name="cbxVoertuig" FontSize="15" Width="75" Margin="15,0,0,0"></ComboBox>
+                            <TextBox Name="txbLiters" Width="75" Margin="15,0,0,0">...</TextBox>
+                            <TextBox Name="txbPrijsLiter" Width="100" Margin="15,0,0,0">...</TextBox>
+                            <TextBox Name="txbDatum" Width="100" Margin="15,0,0,0">...</TextBox>
+                            <TextBox Name="txbVerbruik" Width="100" Margin="15,0,0,0">...</TextBox>
+                            <ComboBox Name="cbxBrandstof" FontSize="15" Width="100" Margin="15,0,0,0"></ComboBox>
+
+                        </StackPanel>
+                        <Button Content="Toevoegen" Click="Toevoegen_Click" Margin="15,10,0,10"/>
+                    </StackPanel>
+
+                </GroupBox>
+
+                <GroupBox 
+                    Name="grpbxGeschiedenis" Header="Tankgeschiedenis" Margin="10" BorderBrush="Black" FontFamily="Montserrat" 
+                    FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1">
+
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Voertuig" FontSize="15" Width="75" Margin="15,0,0,0"></TextBlock>
+                            <TextBlock Text="Liters" FontSize="15" Width="75" Margin="15,0,0,0"></TextBlock>
+                            <TextBlock Text="Prijs/L (€/L)" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
+                            <TextBlock Text="Datum" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
+                            <TextBlock Text="Ø (L/100km)" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
+                            <TextBlock Text="Brandstof" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <ListBox x:Name="lstGeschiedenis" Margin="10"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                </GroupBox>
+
+                <GroupBox 
+                    Name="grpbxActuelePrijzen" Header="Actuele prijzen Dats24 Izegem" Margin="10" BorderBrush="Black" FontFamily="Montserrat" 
+                    FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1">
+                    
+                    <StackPanel>
+                        <Label Name="lblActuelePrijsEuro95"></Label>
+                        <Label Name="lblActuelePrijsEuro98"></Label>
+                        <Label Name="lblActuelePrijsDiesel"></Label>
+                    </StackPanel>
+                      
+                </GroupBox>
+                
+
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+
+</Window>
+
+
+Ik zou graag hebben dat je het bestand prijsgeschiedenis.json uitleest en ervan een grafiek maakt! Graag in grpbxActuelePrijzen een grafiek maken van de prijzen
+
+ChatGPT
+Om een grafiek van de prijsgeschiedenis te maken, kunnen we gebruik maken van een grafiekcomponent in WPF, zoals System.Windows.Controls.DataVisualization.Charting.Chart. Hieronder zie je hoe je dit kunt 
