@@ -9,16 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Logo.jpg" />
+    <None Remove="images\favicon.ico" />
+    <None Remove="images\Logo.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.61" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Logo.jpg" />
+    <Resource Include="images\favicon.ico" />
+    <Resource Include="images\Logo.png" />
   </ItemGroup>
 
 </Project>
