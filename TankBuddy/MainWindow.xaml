@@ -35,187 +35,183 @@
     </Window.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
         <Grid>
-            <StackPanel>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <GroupBox 
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" /> <!--770 bij klein laptop scherm-->
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <GroupBox 
                         Name="grpbxToevoegen" Header="Voeg een tankbeurt toe" Margin="15" BorderBrush="Black" FontFamily="Montserrat" 
-                        FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1" Grid.Column="0">
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Voertuig" FontSize="15" Width="250" Margin="15,0,0,0"></TextBlock>
-                                <TextBlock Text="Liters" FontSize="15" Width="75" Margin="15,0,0,0"></TextBlock>
-                                <TextBlock Text="Prijs/L (€/L)" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
-                                <TextBlock Text="Datum" FontSize="15" Width="200" Margin="15,0,0,0"></TextBlock>
-                                <TextBlock Text="Ø (L/100km)" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
-                                <TextBlock Text="Brandstof" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <ComboBox x:Name="cbxVoertuig" FontSize="15" Width="250" Margin="15,0,0,0" />
-                                <TextBox Name="txbLiters" Width="75" Margin="15,0,0,0">...</TextBox>
-                                <TextBox Name="txbPrijsLiter" Width="100" Margin="15,0,0,0">...</TextBox>
-                                <DatePicker Name="dpDatum" Width="200" Margin="15,0,0,0"></DatePicker>
-                                <TextBox Name="txbVerbruik" Width="100" Margin="15,0,0,0">...</TextBox>
-                                <ComboBox Name="cbxBrandstof" FontSize="15" Width="100" Margin="15,0,0,0"></ComboBox>
-                            </StackPanel>
-                            <Button Content="Toevoegen" Click="Toevoegen_Click" Margin="15,10,0,10"/>
+                        FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1" Grid.Row="0" Grid.Column="0">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                            <TextBlock Text="Voertuig" FontSize="15" Width="250" Margin="15,0,0,0"></TextBlock>
+                            <TextBlock Text="Liters" FontSize="15" Width="75" Margin="15,0,0,0"></TextBlock>
+                            <TextBlock Text="Prijs/L (€/L)" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
+                            <TextBlock Text="Datum" FontSize="15" Width="200" Margin="15,0,0,0"></TextBlock>
+                            <TextBlock Text="Ø (L/100km)" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
+                            <TextBlock Text="Brandstof" FontSize="15" Width="100" Margin="15,0,0,0"></TextBlock>
                         </StackPanel>
-                    </GroupBox>
-                    <GroupBox 
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                            <ComboBox x:Name="cbxVoertuig" FontSize="15" Width="250" Margin="15,0,0,0" />
+                            <TextBox Name="txbLiters" Width="75" Margin="15,0,0,0">...</TextBox>
+                            <TextBox Name="txbPrijsLiter" Width="100" Margin="15,0,0,0">...</TextBox>
+                            <DatePicker Name="dpDatum" Width="200" Margin="15,0,0,0"></DatePicker>
+                            <TextBox Name="txbVerbruik" Width="100" Margin="15,0,0,0">...</TextBox>
+                            <ComboBox Name="cbxBrandstof" FontSize="15" Width="100" Margin="15,0,0,0"></ComboBox>
+                        </StackPanel>
+                        <Button Content="Toevoegen" Click="Toevoegen_Click" Margin="15,10,0,10"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox 
     Name="grpbxLogo" Header="Tanklogger TankBuddy  |  Vives Elektronica ICT  |  Project OOP" Margin="15" BorderBrush="Black" FontFamily="Montserrat" 
-FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1" Grid.Column="1">
-                        <StackPanel Orientation="Horizontal" Height="120" Margin="15">
-                            <Image Source="/images/Logo.png" Width="115" Margin="30,0,0,0" Height="115" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                            <Label FontFamily="Montserrat" FontWeight="Bold" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,0,0,0">TANKBUDDY  |  Milan Blairon</Label>
-                        </StackPanel>
-                    </GroupBox>
-                </Grid>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <!-- GroupBox voor de grafiek van de liters per maand -->
-                    <GroupBox Name="grpbxLitersPerMaand" Header="Liters per maand" Margin="15" BorderBrush="Black" FontFamily="Montserrat" 
-          FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1" Grid.Column="0">
-                        <StackPanel>
-                            <lvc:CartesianChart x:Name="LitersPerMaandGrafiek" LegendLocation="Right" Margin="10" Height="300" Foreground="White" BorderBrush="Black">
-                                <lvc:CartesianChart.Resources>
-                                    <!-- Aangepaste stijl voor alle tooltips -->
-                                    <Style TargetType="lvc:DefaultTooltip">
-                                        <Setter Property="Background" Value="Black"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                    </Style>
-                                    <!-- Aangepaste stijl voor de tooltip in de grafiek -->
-                                    <Style x:Key="ChartTooltipStyle" TargetType="lvc:DefaultTooltip">
-                                        <Setter Property="Background" Value="Black"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                    </Style>
-                                </lvc:CartesianChart.Resources>
-                            </lvc:CartesianChart>
-                            <Button Content="Reset Zoom" Click="ResetZoomLiters_Click" Margin="10"/>
-                        </StackPanel>
-                    </GroupBox>
-                    <!-- GroupBox voor de staafdiagram grafiek -->
-                    <GroupBox Name="grpbxVerbruikPerMaand" Header="Ø (L/100km) per maand" Margin="15" BorderBrush="Black" FontFamily="Montserrat" 
-              FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1" Grid.Column="1">
-                        <StackPanel>
-                            <lvc:CartesianChart x:Name="GemiddeldVerbruikMaandGrafiek" LegendLocation="Right" Margin="10" Height="300" Foreground="White" BorderBrush="Black">
-                                <lvc:CartesianChart.Resources>
-                                    <!-- Aangepaste stijl voor alle tooltips -->
-                                    <Style TargetType="lvc:DefaultTooltip">
-                                        <Setter Property="Background" Value="Black"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                    </Style>
-                                    <!-- Aangepaste stijl voor de tooltip in de grafiek -->
-                                    <Style x:Key="ChartTooltipStyle" TargetType="lvc:DefaultTooltip">
-                                        <Setter Property="Background" Value="Black"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                    </Style>
-                                </lvc:CartesianChart.Resources>
-                            </lvc:CartesianChart>
-                            <Button Content="Reset Zoom" Click="ResetZoomVerbruik_Click" Margin="10"/>
-                        </StackPanel>
-                    </GroupBox>
-                </Grid>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <GroupBox 
+FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1" Grid.Row="0" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" Height="120" Margin="15" HorizontalAlignment="Stretch">
+                        <Image Source="/images/Logo.png" Width="115" Margin="30,0,0,0" Height="115" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                        <Label FontFamily="Montserrat" FontWeight="Bold" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,0,0,0">TANKBUDDY  |  Milan Blairon</Label>
+                    </StackPanel>
+                </GroupBox>
+
+
+                <!-- GroupBox voor de grafiek van de liters per maand -->
+                <GroupBox Name="grpbxLitersPerMaand" Header="Liters per maand" Margin="15" BorderBrush="Black" FontFamily="Montserrat" 
+          FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1" Grid.Row="1" Grid.Column="0">
+                    <StackPanel HorizontalAlignment="Stretch">
+                        <lvc:CartesianChart x:Name="LitersPerMaandGrafiek" LegendLocation="Right" Margin="10" Height="300" Foreground="White" BorderBrush="Black">
+                            <lvc:CartesianChart.Resources>
+                                <!-- Aangepaste stijl voor alle tooltips -->
+                                <Style TargetType="lvc:DefaultTooltip">
+                                    <Setter Property="Background" Value="Black"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                                <!-- Aangepaste stijl voor de tooltip in de grafiek -->
+                                <Style x:Key="ChartTooltipStyle" TargetType="lvc:DefaultTooltip">
+                                    <Setter Property="Background" Value="Black"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </lvc:CartesianChart.Resources>
+                        </lvc:CartesianChart>
+                        <Button Content="Reset Zoom" Click="ResetZoomLiters_Click" Margin="10"/>
+                    </StackPanel>
+                </GroupBox>
+                <!-- GroupBox voor de staafdiagram grafiek -->
+                <GroupBox Name="grpbxVerbruikPerMaand" Header="Ø (L/100km) per maand" Margin="15" BorderBrush="Black" FontFamily="Montserrat" 
+              FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1" Grid.Row="1" Grid.Column="1">
+                    <StackPanel HorizontalAlignment="Stretch">
+                        <lvc:CartesianChart x:Name="GemiddeldVerbruikMaandGrafiek" LegendLocation="Right" Margin="10" Height="300" Foreground="White" BorderBrush="Black">
+                            <lvc:CartesianChart.Resources>
+                                <!-- Aangepaste stijl voor alle tooltips -->
+                                <Style TargetType="lvc:DefaultTooltip">
+                                    <Setter Property="Background" Value="Black"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                                <!-- Aangepaste stijl voor de tooltip in de grafiek -->
+                                <Style x:Key="ChartTooltipStyle" TargetType="lvc:DefaultTooltip">
+                                    <Setter Property="Background" Value="Black"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </lvc:CartesianChart.Resources>
+                        </lvc:CartesianChart>
+                        <Button Content="Reset Zoom" Click="ResetZoomVerbruik_Click" Margin="10"/>
+                    </StackPanel>
+                </GroupBox>
+
+
+                <GroupBox 
                     Name="grpbxGeschiedenis" Header="Tankgeschiedenis" Margin="15" BorderBrush="Black" FontFamily="Montserrat" 
-                    FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1" Grid.Column="0">
-                        <StackPanel>
-                            <DataGrid Height="475" x:Name="dgGeschiedenis" AutoGenerateColumns="False" Margin="10" ColumnWidth="*" 
+                    FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1" Grid.Row="2" Grid.Column="0">
+                    <StackPanel HorizontalAlignment="Stretch">
+                        <DataGrid Height="475" x:Name="dgGeschiedenis" AutoGenerateColumns="False" Margin="10" ColumnWidth="*" 
           HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat={}{0:dd-MM-yyyy}}" Width="*">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                                <Setter Property="Padding" Value="5"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
-                                    <DataGridTextColumn Header="Voertuig" Binding="{Binding Voertuig}" Width="*">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                                <Setter Property="Padding" Value="5"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
-                                    <DataGridTextColumn Header="Liters" Binding="{Binding Liters}" Width="*">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                                <Setter Property="Padding" Value="5"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
-                                    <DataGridTextColumn Header="Prijs/L (€/L)" Binding="{Binding PrijsPerLiter}" Width="*">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                                <Setter Property="Padding" Value="5"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
-                                    <DataGridTextColumn Header="Ø (L/100km)" Binding="{Binding Verbruik}" Width="*">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                                <Setter Property="Padding" Value="5"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
-                                    <DataGridTextColumn Header="Brandstof" Binding="{Binding Brandstof}" Width="*">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                                <Setter Property="Padding" Value="5"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
-                                </DataGrid.Columns>
-                                <DataGrid.CellStyle>
-                                    <Style TargetType="DataGridCell">
-                                        <Setter Property="Padding" Value="5"/>
-                                    </Style>
-                                </DataGrid.CellStyle>
-                            </DataGrid>
-                        </StackPanel>
-                    </GroupBox>
-                    <GroupBox 
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat={}{0:dd-MM-yyyy}}" Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Voertuig" Binding="{Binding Voertuig}" Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Liters" Binding="{Binding Liters}" Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Prijs/L (€/L)" Binding="{Binding PrijsPerLiter}" Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Ø (L/100km)" Binding="{Binding Verbruik}" Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Brandstof" Binding="{Binding Brandstof}" Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="Padding" Value="5"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Padding" Value="5"/>
+                                </Style>
+                            </DataGrid.CellStyle>
+                        </DataGrid>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox 
                     Name="grpbxActuelePrijzen" Header="Actuele prijzen Dats24 Izegem" Margin="15" BorderBrush="Black" FontFamily="Montserrat" 
-                    FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1" Grid.Column="1">
-                        <StackPanel>
-                            <Label Name="lblActuelePrijsEuro95"></Label>
-                            <Label Name="lblActuelePrijsEuro98"></Label>
-                            <Label Name="lblActuelePrijsDiesel"></Label>
-                            <lvc:CartesianChart x:Name="Chart" LegendLocation="Right" Margin="10" Height="300" Foreground="White" BorderBrush="Black">
-                                <lvc:CartesianChart.Resources>
-                                    <!-- Aangepaste stijl voor alle tooltips -->
-                                    <Style TargetType="lvc:DefaultTooltip">
-                                        <Setter Property="Background" Value="Black"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                    </Style>
-                                    <!-- Aangepaste stijl voor de tooltip in de grafiek -->
-                                    <Style x:Key="ChartTooltipStyle" TargetType="lvc:DefaultTooltip">
-                                        <Setter Property="Background" Value="Black"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                    </Style>
-                                </lvc:CartesianChart.Resources>
-                            </lvc:CartesianChart>
-                            <Button Content="Reset Zoom" Click="ResetZoomPrijs_Click" Margin="10"/>
-                        </StackPanel>
-                    </GroupBox>
-                </Grid>
-            </StackPanel>
+                    FontWeight="Bold" Foreground="Black" FontSize="25" BorderThickness="1" Grid.Row="2" Grid.Column="1">
+                    <StackPanel HorizontalAlignment="Stretch">
+                        <Label Name="lblActuelePrijsEuro95"></Label>
+                        <Label Name="lblActuelePrijsEuro98"></Label>
+                        <Label Name="lblActuelePrijsDiesel"></Label>
+                        <lvc:CartesianChart x:Name="Chart" LegendLocation="Right" Margin="10" Height="300" Foreground="White" BorderBrush="Black">
+                            <lvc:CartesianChart.Resources>
+                                <!-- Aangepaste stijl voor alle tooltips -->
+                                <Style TargetType="lvc:DefaultTooltip">
+                                    <Setter Property="Background" Value="Black"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                                <!-- Aangepaste stijl voor de tooltip in de grafiek -->
+                                <Style x:Key="ChartTooltipStyle" TargetType="lvc:DefaultTooltip">
+                                    <Setter Property="Background" Value="Black"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </lvc:CartesianChart.Resources>
+                        </lvc:CartesianChart>
+                        <Button Content="Reset Zoom" Click="ResetZoomPrijs_Click" Margin="10"/>
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
         </Grid>
     </ScrollViewer>
 </Window>
