@@ -1,0 +1,626 @@
+{
+ "36": {
+  "id": "36",
+  "name": "DATS 24 Lokeren",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/lokeren/9160/36",
+  "lat": 51.109953431943,
+  "lng": 3.9665286598213,
+  "address": "Gentsesteenweg 26, 9160 Lokeren"
+ },
+ "135": {
+  "id": "135",
+  "name": "DATS 24 Nossegem",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/nossegem/1930/135",
+  "lat": 50.878756133996,
+  "lng": 4.5106150328375,
+  "address": "Voskapellelaan 11, 1930 Nossegem"
+ },
+ "137": {
+  "id": "137",
+  "name": "DATS 24 Ring Halle",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/halle/1500/137",
+  "lat": 50.727077362813,
+  "lng": 4.2174101174936,
+  "address": "Edingensesteenweg 300, 1500 Halle"
+ },
+ "140": {
+  "id": "140",
+  "name": "DATS 24 Colruyt Aalst",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/aalst/9300/140",
+  "lat": 50.932999572716,
+  "lng": 4.0544060674591,
+  "address": "Brusselsesteenweg 41, 9300 Aalst"
+ },
+ "142": {
+  "id": "142",
+  "name": "DATS 24 Wavre",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/wavre/1300/142",
+  "lat": 50.717063231472,
+  "lng": 4.6156629239426,
+  "address": "Avenue des Princes 45, 1300 Wavre"
+ },
+ "145": {
+  "id": "145",
+  "name": "DATS 24 Menen",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/menen/8930/145",
+  "lat": 50.804461352244,
+  "lng": 3.0958799309856,
+  "address": "Ieperstraat 435, 8930 Menen"
+ },
+ "146": {
+  "id": "146",
+  "name": "DATS 24 Lochristi",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/lochristi/9080/146",
+  "lat": 51.091478504537,
+  "lng": 3.8161063680534,
+  "address": "Antwerpse Steenweg 44, 9080 Lochristi"
+ },
+ "147": {
+  "id": "147",
+  "name": "DATS 24 Roeselare",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/roeselare/8800/147",
+  "lat": 50.956219472958,
+  "lng": 3.1192377962951,
+  "address": "Noordlaan 32, 8800 Roeselare"
+ },
+ "149": {
+  "id": "149",
+  "name": "DATS 24 Halle Dassenveld",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/halle/1500/149",
+  "lat": 50.727747074598,
+  "lng": 4.2128541620407,
+  "address": "Zinkstraat 1, 1500 Halle"
+ },
+ "150": {
+  "id": "150",
+  "name": "DATS 24 Colruyt Dour",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/dour/7370/150",
+  "lat": 50.396701,
+  "lng": 3.769212,
+  "address": "Rue d'Elouges 104, 7370 Dour"
+ },
+ "152": {
+  "id": "152",
+  "name": "DATS 24 Evere",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/evere/1140/152",
+  "lat": 50.860724926882,
+  "lng": 4.4144557903519,
+  "address": "Oud-Strijderslaan 42, 1140 Evere"
+ },
+ "153": {
+  "id": "153",
+  "name": "DATS 24 Ukkel",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/ukkel/1180/153",
+  "lat": 50.796401964141,
+  "lng": 4.3238946749382,
+  "address": "Stallestraat 153, 1180 Ukkel"
+ },
+ "155": {
+  "id": "155",
+  "name": "DATS 24 moeskroen",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/moeskroen/7700/155",
+  "lat": 50.755278341869,
+  "lng": 3.2004780489349,
+  "address": "Menenstraat 483, 7700 Moeskroen"
+ },
+ "158": {
+  "id": "158",
+  "name": "DATS 24 Gilly",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/gilly/6060/158",
+  "lat": 50.421306,
+  "lng": 4.477943,
+  "address": "Chauss&eacute;e de Charleroi 61, 6060 Gilly"
+ },
+ "159": {
+  "id": "159",
+  "name": "DATS 24 Marcinelle",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/marcinelle/6001/159",
+  "lat": 50.398227885438,
+  "lng": 4.4459683564835,
+  "address": "Avenue E. Mascaux 71, 6001 Marcinelle"
+ },
+ "160": {
+  "id": "160",
+  "name": "DATS 24 Colruyt Gosselies",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/gosselies/6041/160",
+  "lat": 50.459748575614,
+  "lng": 4.4359149312134,
+  "address": "Rue Tahon 37, 6041 Gosselies"
+ },
+ "162": {
+  "id": "162",
+  "name": "DATS 24 Colruyt Mons",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/bergen/7000/162",
+  "lat": 50.452402989103,
+  "lng": 3.9764794834671,
+  "address": "Chaussee de Binche 121, 7000 Bergen"
+ },
+ "165": {
+  "id": "165",
+  "name": "DATS 24 Anderlecht",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/anderlecht/1070/165",
+  "lat": 50.827809,
+  "lng": 4.3023893521843,
+  "address": "Bergensesteenweg 824, 1070 Anderlecht"
+ },
+ "166": {
+  "id": "166",
+  "name": "DATS 24 Colruyt Tournai",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/tournai/7500/166",
+  "lat": 50.604775589393,
+  "lng": 3.4126415631599,
+  "address": "Chauss&eacute;e de Bruxelles 154, 7500 Tournai"
+ },
+ "167": {
+  "id": "167",
+  "name": "DATS 24 Colruyt Nivelles",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/nivelles/1400/167",
+  "lat": 50.610587383227,
+  "lng": 4.3371801104507,
+  "address": "Chauss&eacute;e de Bruxelles 178, 1400 Nivelles"
+ },
+ "168": {
+  "id": "168",
+  "name": "DATS 24 Colruyt Ath",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/ath/7800/168",
+  "lat": 50.634051218216,
+  "lng": 3.7889935677665,
+  "address": "Chauss&eacute;e de Bruxelles 116, 7800 Ath"
+ },
+ "169": {
+  "id": "169",
+  "name": "DATS 24 Ghislenghien",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/ghislenghien/7822/169",
+  "lat": 50.6542175,
+  "lng": 3.8588616,
+  "address": "Rue du Parc Industriel 34, 7822 Ghislenghien"
+ },
+ "170": {
+  "id": "170",
+  "name": "DATS 24 Colruyt Gent",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/gent/9000/170",
+  "lat": 51.055212978794,
+  "lng": 3.6951665793068,
+  "address": "Drongensesteenweg 197, 9000 Gent"
+ },
+ "173": {
+  "id": "173",
+  "name": "DATS 24 Dendermonde",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/dendermonde/9200/173",
+  "lat": 51.038277,
+  "lng": 4.13587,
+  "address": "Mechelsesteenweg 352, 9200 Dendermonde"
+ },
+ "174": {
+  "id": "174",
+  "name": "DATS 24 Middelkerke",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/middelkerke/8430/174",
+  "lat": 51.193496285346,
+  "lng": 2.8403273886584,
+  "address": "Oostendelaan 298, 8430 Middelkerke"
+ },
+ "175": {
+  "id": "175",
+  "name": "DATS 24 Overijse",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/overijse/3090/175",
+  "lat": 50.783533498692,
+  "lng": 4.5058253700813,
+  "address": "Brusselsesteenweg 361, 3090 Overijse"
+ },
+ "177": {
+  "id": "177",
+  "name": "DATS 24 Asse",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/asse/1730/177",
+  "lat": 50.916654521798,
+  "lng": 4.1894697697687,
+  "address": "Nervi&euml;rsstraat 49, 1730 Asse"
+ },
+ "190": {
+  "id": "190",
+  "name": "DATS 24 Avelgem",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/avelgem/8580/190",
+  "lat": 50.764258449549,
+  "lng": 3.4390274152252,
+  "address": "Doorniksesteenweg 272, 8580 Avelgem"
+ },
+ "457": {
+  "id": "457",
+  "name": "DATS 24 Lennik",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/lennik/1750/457",
+  "lat": 50.806166,
+  "lng": 4.149948,
+  "address": "Kroonstraat 73, 1750 Lennik"
+ },
+ "481": {
+  "id": "481",
+  "name": "DATS 24 Harelbeke",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/harelbeke/8530/481",
+  "lat": 50.846366758716,
+  "lng": 3.2964177997028,
+  "address": "Kortrijksesteenweg 206, 8530 Harelbeke"
+ },
+ "707": {
+  "id": "707",
+  "name": "DATS 24 Destelbergen",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/destelbergen/9070/707",
+  "lat": 51.0596548,
+  "lng": 3.8253463,
+  "address": "Dendermondsesteenweg 694, 9070 Destelbergen"
+ },
+ "820": {
+  "id": "820",
+  "name": "DATS 24 Grez-Doiceau",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/grez-doiceau/1390/820",
+  "lat": 50.743360689477,
+  "lng": 4.6776087239539,
+  "address": "Chauss&eacute;e de Wavre 202, 1390 Grez-Doiceau"
+ },
+ "823": {
+  "id": "823",
+  "name": "DATS 24 Wevelgem",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/wevelgem/8560/823",
+  "lat": 50.812445,
+  "lng": 3.195592,
+  "address": "Kortrijkstraat 226, 8560 Wevelgem"
+ },
+ "1110": {
+  "id": "1110",
+  "name": "DATS 24 Lembeek",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/halle/1500/1110",
+  "lat": 50.719631,
+  "lng": 4.223922,
+  "address": "Bergensesteenweg 505, 1500 Halle"
+ },
+ "1177": {
+  "id": "1177",
+  "name": "DATS 24 Givry",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/givry/7041/1177",
+  "lat": 50.377957,
+  "lng": 4.037631,
+  "address": "Chee De Beaumont 69, 7041 Givry"
+ },
+ "1977": {
+  "id": "1977",
+  "name": "DATS 24 Ninove",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/ninove/9400/1977",
+  "lat": 50.839001888488,
+  "lng": 4.013153708004,
+  "address": "Albertlaan 158, 9400 Ninove"
+ },
+ "2202": {
+  "id": "2202",
+  "name": "DATS 24 Tielt",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/tielt/8700/2202",
+  "lat": 50.996932188521,
+  "lng": 3.3063490966614,
+  "address": "Pittemsesteenweg 45, 8700 Tielt"
+ },
+ "3232": {
+  "id": "3232",
+  "name": "DATS 24 Chapelle-lez-Herlaimont",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/chapelle-lez-herlaimont/7160/3232",
+  "lat": 50.466792338258,
+  "lng": 4.2686013042297,
+  "address": "Rue d'Anderlues 15, 7160 Chapelle-lez-Herlaimont"
+ },
+ "3736": {
+  "id": "3736",
+  "name": "DATS 24 Anderlues",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/anderlues/6150/3736",
+  "lat": 50.40581,
+  "lng": 4.273682,
+  "address": "Chauss&eacute;e de Charleroi 2, 6150 Anderlues"
+ },
+ "3738": {
+  "id": "3738",
+  "name": "DATS 24 Braine-l'Alleud",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/braine-lalleud/1420/3738",
+  "lat": 50.697500843255,
+  "lng": 4.3634873300248,
+  "address": "Chauss&eacute;e d'Alsemberg 469, 1420 Braine-l'Alleud"
+ },
+ "3739": {
+  "id": "3739",
+  "name": "DATS 24 Courcelles",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/courcelles/6180/3739",
+  "lat": 50.45659,
+  "lng": 4.37466,
+  "address": "Rue Baudouin Ier 78, 6180 Courcelles"
+ },
+ "3740": {
+  "id": "3740",
+  "name": "DATS 24 Deinze",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/deinze/9800/3740",
+  "lat": 50.981076130441,
+  "lng": 3.5466781174936,
+  "address": "Gentsesteenweg 208, 9800 Deinze"
+ },
+ "3741": {
+  "id": "3741",
+  "name": "DATS 24 Colruyt Edingen",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/edingen/7850/3741",
+  "lat": 50.690677,
+  "lng": 4.032585,
+  "address": "Hovestraat 132, 7850 Edingen"
+ },
+ "3742": {
+  "id": "3742",
+  "name": "DATS 24 Halle Stroppen ",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/halle/1500/3742",
+  "lat": 50.753195327959,
+  "lng": 4.2527217788705,
+  "address": "Bilkensveld 2, 1500 Halle"
+ },
+ "3743": {
+  "id": "3743",
+  "name": "DATS 24 Izegem",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/izegem/8870/3743",
+  "lat": 50.915335846779,
+  "lng": 3.1977126770171,
+  "address": "Krekelmotestraat 147, 8870 Izegem"
+ },
+ "3744": {
+  "id": "3744",
+  "name": "DATS 24 Kuurne",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/kuurne/8520/3744",
+  "lat": 50.857561040585,
+  "lng": 3.2705546598209,
+  "address": "Brugsesteenweg 184, 8520 Kuurne"
+ },
+ "3746": {
+  "id": "3746",
+  "name": "DATS 24 Maldegem",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/maldegem/9990/3746",
+  "lat": 51.203766876563,
+  "lng": 3.4528799187517,
+  "address": "Koning Leopoldlaan 2, 9990 Maldegem"
+ },
+ "3750": {
+  "id": "3750",
+  "name": "DATS 24 Woluwe-Saint-Lambert",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/sint-lambrechts-woluwe/1200/3750",
+  "lat": 50.847702,
+  "lng": 4.430087,
+  "address": "Vervloesemstraat 146, 1200 Sint-Lambrechts-Woluwe"
+ },
+ "3845": {
+  "id": "3845",
+  "name": "DATS 24 Marbais",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/marbais/1495/3845",
+  "lat": 50.536019080812,
+  "lng": 4.5488602257475,
+  "address": "Chauss&eacute;e de Namur 264, 1495 Marbais"
+ },
+ "3886": {
+  "id": "3886",
+  "name": "DATS 24 Morlanwelz",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/morlanwelz/7140/3886",
+  "lat": 50.456750908126,
+  "lng": 4.2344117604659,
+  "address": "Chauss&eacute;e de Mariemont 36, 7140 Morlanwelz"
+ },
+ "3889": {
+  "id": "3889",
+  "name": "DATS 24 Rebecq",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/rebecq/1430/3889",
+  "lat": 50.6571413,
+  "lng": 4.164935,
+  "address": "Chauss&eacute;e de Mons 27, 1430 Rebecq"
+ },
+ "3948": {
+  "id": "3948",
+  "name": "DATS 24 Denderleeuw",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/denderleeuw/9470/3948",
+  "lat": 50.873254247239,
+  "lng": 4.0796157754631,
+  "address": "Kasteelstraat 28-30, 9470 Denderleeuw"
+ },
+ "4032": {
+  "id": "4032",
+  "name": "DATS 24 Saint Ghislain",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/saint-ghislain/7330/4032",
+  "lat": 50.454764787522,
+  "lng": 3.8121059497375,
+  "address": "rue du Sas 81, 7330 Saint-Ghislain"
+ },
+ "4171": {
+  "id": "4171",
+  "name": "DATS 24 Alsemberg",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/alsemberg/1652/4171",
+  "lat": 50.741245464841,
+  "lng": 4.3365629980392,
+  "address": "Brusselsesteenweg 17, 1652 Alsemberg"
+ },
+ "4176": {
+  "id": "4176",
+  "name": "DATS 24 Meerbeke",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/meerbeke/9402/4176",
+  "lat": 50.829178,
+  "lng": 4.046423,
+  "address": "Brusselsesteenweg 341, 9402 Meerbeke"
+ },
+ "4303": {
+  "id": "4303",
+  "name": "DATS 24 Wetteren",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/wetteren/9230/4303",
+  "lat": 50.984363,
+  "lng": 3.844571,
+  "address": "Brusselsesteenweg 252, 9230 Wetteren"
+ },
+ "4310": {
+  "id": "4310",
+  "name": "DATS 24 Lovendegem",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/lovendegem/9920/4310",
+  "lat": 51.102120704002,
+  "lng": 3.6313435760575,
+  "address": "Grote Baan 109, 9920 Lovendegem"
+ },
+ "4629": {
+  "id": "4629",
+  "name": "DATS 24 Torhout",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/torhout/8820/4629",
+  "lat": 51.082401198124,
+  "lng": 3.1158581999306,
+  "address": "Bruggestraat 166, 8820 Torhout"
+ },
+ "4652": {
+  "id": "4652",
+  "name": "DATS 24 Melle",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/melle/9090/4652",
+  "lat": 51.022809,
+  "lng": 3.775196,
+  "address": "Brusselsesteenweg 36, 9090 Melle"
+ },
+ "4653": {
+  "id": "4653",
+  "name": "DATS 24 Blankenberge",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/blankenberge/8370/4653",
+  "lat": 51.302333589596,
+  "lng": 3.1438615613702,
+  "address": "Ruitersstraat 2, 8370 Blankenberge"
+ },
+ "18931": {
+  "id": "18931",
+  "name": "Dats 24 Thuin",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/thuin/6530/18931",
+  "lat": 50.339391,
+  "lng": 4.3076301,
+  "address": "Dr&egrave;ve des Alli&eacute;s 90-92, 6530 Thuin"
+ },
+ "18976": {
+  "id": "18976",
+  "name": "DATS 24 Peruwelz",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/peruwelz/7600/18976",
+  "lat": 50.521981,
+  "lng": 3.600565,
+  "address": "Rue Neuve Chauss&eacute;e 139b, 7600 P&eacute;ruwelz"
+ },
+ "19345": {
+  "id": "19345",
+  "name": "DATS 24 Zaventem",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/zaventem/1930/19345",
+  "lat": 50.871791739402,
+  "lng": 4.4767673886579,
+  "address": "Leuvensesteenweg 500, 1930 Zaventem"
+ },
+ "19435": {
+  "id": "19435",
+  "name": "DATS 24 Frameries",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/frameries/7080/19435",
+  "lat": 50.407900739876,
+  "lng": 3.8882762962952,
+  "address": "rue Joseph Dufrane 76, 7080 Frameries"
+ },
+ "19437": {
+  "id": "19437",
+  "name": "DATS 24 Roeselare Mandel",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/roeselare/8800/19437",
+  "lat": 50.957741428344,
+  "lng": 3.1321254819117,
+  "address": "Beversesteenweg 202, 8800 Roeselare"
+ },
+ "19488": {
+  "id": "19488",
+  "name": "DATS 24 Grimbergen",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/grimbergen/1850/19488",
+  "lat": 50.927026080048,
+  "lng": 4.3912799185547,
+  "address": "Vilvoordsesteenweg 301a, 1850 Grimbergen"
+ },
+ "19757": {
+  "id": "19757",
+  "name": "Dats 24 Eeklo",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/eeklo/9900/19757",
+  "lat": 51.194357,
+  "lng": 3.5449489,
+  "address": "Leopoldlaan 58, 9900 Eeklo"
+ },
+ "19767": {
+  "id": "19767",
+  "name": "DATS 24 Herzele",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/herzele/9550/19767",
+  "lat": 50.902346735266,
+  "lng": 3.8850498018523,
+  "address": "Provincieweg 178, 9550 Herzele"
+ },
+ "19800": {
+  "id": "19800",
+  "name": "DATS 24 Basecles ",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/quevaucamps/7972/19800",
+  "lat": 50.512399364989,
+  "lng": 3.6793042037049,
+  "address": "rue de Tournai  157, 7972 Quevaucamps"
+ },
+ "19805": {
+  "id": "19805",
+  "name": "DATS 24 Opwijk",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/opwijk/1745/19805",
+  "lat": 50.961533022979,
+  "lng": 4.2028744937896,
+  "address": "Steenweg op Merchtem 137, 1745 Opwijk"
+ },
+ "19839": {
+  "id": "19839",
+  "name": "DATS 24 Gent Wiedauwkaai",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/gent/9000/19839",
+  "lat": 51.086517019719,
+  "lng": 3.7251160073402,
+  "address": "Wiedauwkaai 109, 9000 Gent"
+ },
+ "20157": {
+  "id": "20157",
+  "name": "DATS 24 Braine l'Alleud 2",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/braine-lalleud/1420/20157",
+  "lat": 50.691494756664,
+  "lng": 4.325531547152,
+  "address": "Chauss&eacute;e de Tubize 489, 1420 Braine-l'Alleud"
+ },
+ "20324": {
+  "id": "20324",
+  "name": "DATS 24 Houdeng",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/houdeng-goegnies/7110/20324",
+  "lat": 50.490549512425,
+  "lng": 4.1487888552253,
+  "address": "Chauss&eacute;e du pont du Sart 42-50, 7110 Houdeng-Goegnies"
+ },
+ "20847": {
+  "id": "20847",
+  "name": "DATS 24 Genappe",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/genappe/1470/20847",
+  "lat": 50.614858395949,
+  "lng": 4.4536847308273,
+  "address": "Rue des Lilas 25, 1470 Genappe"
+ },
+ "20884": {
+  "id": "20884",
+  "name": "Dats 24 Erpe-Mere",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/erpe-mere/9420/20884",
+  "lat": 50.944568534548,
+  "lng": 3.9732633245716,
+  "address": "Gentsesteenweg 237, 9420 Erpe-Mere"
+ },
+ "20891": {
+  "id": "20891",
+  "name": "Dats 24 Ieper",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/ieper/8900/20891",
+  "lat": 50.8399924,
+  "lng": 2.8886053,
+  "address": "Rijselseweg 80, 8900 Ieper"
+ },
+ "21319": {
+  "id": "21319",
+  "name": "DATS 24 Renaix ",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/ronse/9600/21319",
+  "lat": 50.74159219041,
+  "lng": 3.587417282209,
+  "address": "Chauss&eacute;e de Leuze 93, 9600 Ronse"
+ },
+ "21510": {
+  "id": "21510",
+  "name": "DATS Binche",
+  "url": "https://carbu.com/belgie/index.php/station/dats24/binche/7130/21510",
+  "lat": 50.4216208,
+  "lng": 4.1714111,
+  "address": "Rue Z&eacute;phirin Fontaine 158, 7130 Binche"
+ }
+}

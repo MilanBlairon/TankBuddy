@@ -1,0 +1,2 @@
+const ENT = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', euro: '€', eacute: 'é', egrave: 'è', ecirc: 'ê', agrave: 'à', acirc: 'â', ocirc: 'ô', ucirc: 'û', ugrave: 'ù', ccedil: 'ç', icirc: 'î', iuml: 'ï', euml: 'ë', ouml: 'ö', uuml: 'ü', Eacute: 'É' };
+export const decode = (s) => s.replace(/&#x([0-9a-f]+);/gi, (m, h) => String.fromCodePoint(parseInt(h, 16))).replace(/&#(d+);/g, (m, d) => String.fromCodePoint(+d)).replace(/&([a-zA-Z]+);/g, (m, n) => ENT[n] ?? m);

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TankBuddy</title>
+<meta name="description" content="Tankbeurten, brandstofprijzen en statistieken.">
+<meta name="theme-color" content="#07070d">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="TankBuddy">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div id="auth" hidden></div>
+<div id="app" hidden>
+  <aside id="side"></aside>
+  <main>
+    <header class="top">
+      <div><h1 id="title">Overzicht</h1><div class="sub" id="sub"></div></div>
+      <div class="top-r"><span class="status" id="status"></span><a class="iconbtn" href="#/instellingen" title="Instellingen" id="gear"></a></div>
+    </header>
+    <div id="err"></div>
+    <div id="view"></div>
+  </main>
+  <nav id="tabs"></nav>
+</div>
+<div id="modal" hidden></div>
+<div id="toast"></div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

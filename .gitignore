@@ -361,3 +361,20 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+# TankBuddy2 secrets/deps
+TankBuddy2/.secrets/
+TankBuddy2/tools/node_modules/
+TankBuddy2/.firebase/
+
+
+TankBuddy2/public/demo.json
+TankBuddy2/tools/*.log
+
+# Big/binary files (GitHub rejects files >100 MB): videos, archives
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.zip
+*.7z
+*.rar
