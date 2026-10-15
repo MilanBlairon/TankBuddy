@@ -1,6 +1,8 @@
 import { S, MAIN, vehicle, station, activeFills, priceOn, addFill, updateFill, trashFill, saveVehicle, saveTicket, getTicket, stationDays, exportAll } from './data.js';
 import { $, $$, esc, eur, num, ppl, iso, addDays, dmy, dmyLong, parseNum, sum, r2, slug, monthLabel, FUELS, PUMP_FUELS, fuelLabel, fuelColor, km, toast, ago, download, debounce } from './util.js';
 import { mk, spark, gradient } from './charts.js';
+import { VERSION, BUILT } from './version.js';
+import { status as updStatus, onStatus, check as checkUpdate } from './updater.js';
 import { scanTicket, shrinkTicket, shrinkCar } from './ocr.js';
 
 export const ICON = {
@@ -295,6 +297,9 @@ V.instellingen = {
       <p class="muted">Ingelogd als <b style="color:var(--text)">${esc(S.user?.email || '')}</b></p>
       <p class="muted small">${S.fills.length} tankbeurten · ${S.days.length} prijsdagen Izegem · ${S.stations.length} stations<br>Prijzen laatst bijgewerkt: ${ago(S.meta?.lastRun)} (${S.meta?.stationCount ?? '?'} stations)</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" id="exp">${svg('down')} Back-up (JSON)</button><button class="btn danger" id="out">Uitloggen</button></div>
+      <h3 style="margin-top:22px">App-update</h3>
+      <p class="muted small" style="margin:0 0 10px">TankBuddy ${esc(VERSION)} · ${esc(BUILT)}<br>Updates worden automatisch geladen en toegepast zodra je de app niet gebruikt.</p>
+      <button class="btn" id="upd">${svg('down')} <span>Controleer op updates</span></button> <span class="small" id="updMsg"></span>
       <p class="muted small" style="margin-top:16px">Verwijderen is veilig: tankbeurten gaan naar de prullenbak en zijn herstelbaar.</p></div></div>`;
   },
   after() {
@@ -310,6 +315,9 @@ V.instellingen = {
       const pal = ['#8b5cf6', '#22d3ee', '#f472b6', '#fbbf24', '#34d399', '#60a5fa'];
       try { await saveVehicle(slug(name), { name, plate: f.plate.value.trim(), fuel: 'euro95', trackConsumption: true, color: pal[S.vehicles.length % pal.length], order: S.vehicles.length }); f.reset(); toast('Voertuig toegevoegd ✓'); } catch (err) { toast(err.message, true); }
     };
+    const MSG = { checking: 'Zoeken…', downloading: 'Update gevonden — app herstart zo meteen…', uptodate: '✓ Je hebt de nieuwste versie', error: 'Controle mislukt (offline?)', unsupported: 'Niet ondersteund in deze browser' };
+    const showUpd = (st) => { const m = $('#updMsg'); if (m) m.textContent = MSG[st] || ''; const b = $('#upd'); if (b) b.disabled = st === 'checking' || st === 'downloading'; };
+    showUpd(updStatus); onStatus(showUpd); $('#upd').onclick = () => checkUpdate(true);
     $('#exp').onclick = () => download(`tankbuddy-backup-${iso()}.json`, exportAll());
     $('#out').onclick = () => import('./data.js').then((m) => m.logout());
   },

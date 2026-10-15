@@ -63,6 +63,9 @@
           }
         ]
       }
+    ],
+    "predeploy": [
+      "node tools/stamp.mjs"
     ]
   }
 }

@@ -1,6 +1,7 @@
 import { S, onData, startAuth, signIn, signUp, resend, reset, logout, confirmVerified } from './data.js';
 import { $, $$, ago, esc } from './util.js';
 import { initCharts, killCharts } from './charts.js';
+import { startUpdater } from './updater.js';
 import { V, svg, LOGO, closeModal } from './views.js';
 
 const NAV = [['overzicht', 'Overzicht', 'home'], ['tanken', 'Tanken', 'plus'], ['historiek', 'Historiek', 'list'], ['stats', 'Statistieken', 'chart'], ['prijzen', 'Prijzen', 'tag'], ['instellingen', 'Instellingen', 'gear']];
@@ -60,4 +61,4 @@ startAuth((st) => {
   else if (st.status === 'verify') verifyScreen(st.user);
   else authScreen();
 });
-if ('serviceWorker' in navigator && location.protocol.startsWith('http') && !location.search.includes('demo')) navigator.serviceWorker.register('sw.js').catch(() => {});
+startUpdater();
