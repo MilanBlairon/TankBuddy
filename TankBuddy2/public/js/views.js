@@ -1,7 +1,7 @@
-import { S, MAIN, vehicle, station, activeFills, priceOn, addFill, updateFill, trashFill, saveVehicle, stationDays, exportAll } from './data.js';
+import { S, MAIN, vehicle, station, activeFills, priceOn, addFill, updateFill, trashFill, saveVehicle, saveTicket, getTicket, stationDays, exportAll } from './data.js';
 import { $, $$, esc, eur, num, ppl, iso, addDays, dmy, dmyLong, parseNum, sum, r2, slug, monthLabel, FUELS, PUMP_FUELS, fuelLabel, fuelColor, km, toast, ago, download, debounce } from './util.js';
 import { mk, spark, gradient } from './charts.js';
-import { scanTicket } from './ocr.js';
+import { scanTicket, shrinkTicket, shrinkCar } from './ocr.js';
 
 export const ICON = {
   home: '<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
@@ -22,7 +22,8 @@ export const LOGO = '<svg viewBox="0 0 48 48"><defs><linearGradient id="lg" x1="
 
 const pill = (f) => `<span class="pill" style="--c:${fuelColor(f)}">${esc(fuelLabel(f))}</span>`;
 const vName = (f) => vehicle(f.vehicleId)?.name || f.vehicleName || '?';
-const vColor = (f) => vehicle(f.vehicleId)?.color || '#8b5cf6';
+const HEX = (c) => (/^#[0-9a-f]{6}$/i.test(c) ? c : '#8b5cf6');
+const vColor = (f) => HEX(vehicle(f.vehicleId)?.color);
 const wavg = (fs) => { const l = sum(fs, 'liters'); return l ? sum(fs, 'total') / l : null; };
 const short = (n) => (n || '').replace(/^DATS ?24 ?/i, '') || n;
 const empty = (t) => `<div class="empty">${t}</div>`;
@@ -42,7 +43,7 @@ function formHTML(f = {}) {
   const st = f.stationId === undefined ? MAIN : f.stationId;
   const v = (x) => (x == null ? '' : String(x).replace('.', ','));
   return `
-  <div class="field"><label>Voertuig</label><div class="chips" data-g="vehicleId">${S.vehicles.map((x) => `<button type="button" class="chip ${x.id === v0 ? 'on' : ''}" data-v="${esc(x.id)}" style="--c:${x.color || '#8b5cf6'}">${esc(x.name)}</button>`).join('') || '<span class="muted">Voeg eerst een voertuig toe in Instellingen.</span>'}</div></div>
+  <div class="field"><label>Voertuig</label><div class="chips" data-g="vehicleId">${S.vehicles.map((x) => `<button type="button" class="chip ${x.id === v0 ? 'on' : ''}" data-v="${esc(x.id)}" style="--c:${HEX(x.color)}">${esc(x.name)}</button>`).join('') || '<span class="muted">Voeg eerst een voertuig toe in Instellingen.</span>'}</div></div>
   <div class="row2"><div class="field"><label>Datum</label><input type="date" name="date" value="${f.date || iso()}" max="${iso(addDays(new Date(), 1))}"></div>
   <div class="field"><label>Brandstof</label><div class="chips" data-g="fuel">${PUMP_FUELS.map((k) => `<button type="button" class="chip ${k === fuel0 ? 'on' : ''}" data-v="${k}" style="--c:${fuelColor(k)}">${fuelLabel(k)}</button>`).join('')}</div></div></div>
   <div class="row3"><div class="field"><label>Liters</label><input name="liters" inputmode="decimal" placeholder="0,00" value="${v(f.liters)}"></div>
@@ -110,7 +111,7 @@ V.overzicht = {
     }).join('');
     const vcards = S.vehicles.map((v) => {
       const fs = F.filter((f) => f.vehicleId === v.id), last = fs[0], cs = fs.filter((f) => f.consumption != null).slice(0, 6), avg = cs.length ? sum(cs, 'consumption') / cs.length : null;
-      return `<div class="vcard" style="--c:${v.color}"><div class="av">${esc(v.name.slice(0, 2).toUpperCase())}</div>
+      return `<div class="vcard" style="--c:${HEX(v.color)}">${/^data:image\/(webp|png|jpeg);base64,[A-Za-z0-9+\/=]+$/.test(v.img || '') ? `<img class="car" src="${v.img}" alt="">` : `<div class="av">${esc(v.name.slice(0, 2).toUpperCase())}</div>`}
         <div class="m"><b>${esc(v.name)}</b><span class="muted small">${last ? `Laatst ${dmy(last.date)} · ${num(last.liters, 1)} L · ${eur(last.total)}` : 'Nog geen tankbeurten'}</span></div>
         <div class="r"><b>${v.trackConsumption === false ? eur(sum(fs.filter((f) => f.date >= iso(addDays(now, -365))), 'total'), 0) : avg ? num(avg, 1) : '–'}</b><span class="muted small">${v.trackConsumption === false ? '12 mnd' : 'L/100 km'}</span></div></div>`;
     }).join('');
@@ -136,7 +137,7 @@ V.tanken = {
     return `<div class="grid2">
     <div class="card scan"><div class="ico">${svg('cam')}</div><h3 style="justify-content:center;margin:0">Scan je tankbon</h3>
       <p class="muted" style="margin:0 0 6px">Maak een foto van de bon: liters, prijs en datum worden automatisch ingevuld. Jij kiest enkel het voertuig en het verbruik.</p>
-      <label class="btn grad"><input type="file" id="ticket" accept="image/*" capture="environment" hidden>${svg('cam')} Foto nemen / kiezen</label>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><label class="btn grad"><input type="file" class="ticket" accept="image/*" capture="environment" hidden>${svg('cam')} Foto nemen</label><label class="btn"><input type="file" class="ticket" accept="image/*" hidden>${svg('down')} Bestand kiezen</label></div>
       <div id="scanPrev"></div><div class="bar" id="scanBar" hidden><i></i></div><div class="small muted" id="scanMsg"></div>
       <details id="raw" hidden><summary class="small muted">Ruwe OCR-tekst</summary><pre id="rawTxt"></pre></details></div>
     <form class="card" id="fillForm" novalidate><h3>Tankbeurt</h3>${formHTML()}<button class="btn grad big" type="submit">Opslaan</button></form></div>`;
@@ -145,12 +146,13 @@ V.tanken = {
     const form = $('#fillForm'); bindForm(form);
     form.onsubmit = async (e) => {
       e.preventDefault();
-      try { const o = readForm(form); o.src = form.dataset.src || 'manual'; await addFill(o); toast('Tankbeurt opgeslagen ✓'); location.hash = '#/historiek'; }
+      try { const o = readForm(form); o.src = form.dataset.src || 'manual'; if (form._img) o.ticketId = await saveTicket(form._img); await addFill(o); toast('Tankbeurt opgeslagen ✓'); location.hash = '#/historiek'; }
       catch (err) { toast(err.message, true); }
     };
-    $('#ticket').onchange = async (e) => {
-      const file = e.target.files[0]; if (!file) return;
+    const onFile = async (e) => {
+      const file = e.target.files[0]; e.target.value = ''; if (!file) return;
       $('#scanPrev').innerHTML = `<img src="${URL.createObjectURL(file)}" alt="tankbon">`;
+      shrinkTicket(file).then((u) => (form._img = u)).catch(() => toast('Foto kon niet verkleind worden', true));
       const bar = $('#scanBar'), msg = $('#scanMsg'); bar.hidden = false; msg.textContent = 'Bon wordt gelezen… (eerste keer even geduld)';
       try {
         const r = await scanTicket(file, (p) => ($('i', bar).style.width = Math.round(p * 100) + '%'));
@@ -164,6 +166,7 @@ V.tanken = {
       } catch (err) { msg.innerHTML = `<span class="up">${esc(err.message)}</span>`; }
       bar.hidden = true;
     };
+    $$('.ticket').forEach((i) => (i.onchange = onFile));
   },
 };
 
@@ -178,9 +181,9 @@ V.historiek = {
       <div class="fnum">${num(f.liters)} L<span class="l2">× ${ppl(f.ppl)}</span></div>
       <div class="fcons">${f.consumption != null ? num(f.consumption, 1) + '<small>L/100</small>' : ''}</div>
       <div class="ftot">${eur(f.total)}</div>
-      <div class="fact">${f.deleted ? `<button class="iconbtn" data-act="restore" title="Herstel">${svg('undo')}</button>` : `<button class="iconbtn" data-act="edit" title="Bewerk">${svg('edit')}</button><button class="iconbtn" data-act="trash" title="Naar prullenbak">${svg('trash')}</button>`}</div></div>`;
+      <div class="fact">${f.ticketId ? `<button class="iconbtn" data-act="ticket" title="Bon bekijken">${svg('cam')}</button>` : ''}${f.deleted ? `<button class="iconbtn" data-act="restore" title="Herstel">${svg('undo')}</button>` : `<button class="iconbtn" data-act="edit" title="Bewerk">${svg('edit')}</button><button class="iconbtn" data-act="trash" title="Naar prullenbak">${svg('trash')}</button>`}</div></div>`;
     return `<div class="card"><div style="display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px">
-      <div class="chips" id="hv"><button class="chip ${hf.v === 'all' ? 'on' : ''}" data-v="all">Alle</button>${S.vehicles.map((v) => `<button class="chip ${hf.v === v.id ? 'on' : ''}" data-v="${v.id}" style="--c:${v.color}">${esc(v.name)}</button>`).join('')}</div>
+      <div class="chips" id="hv"><button class="chip ${hf.v === 'all' ? 'on' : ''}" data-v="all">Alle</button>${S.vehicles.map((v) => `<button class="chip ${hf.v === v.id ? 'on' : ''}" data-v="${v.id}" style="--c:${HEX(v.color)}">${esc(v.name)}</button>`).join('')}</div>
       <button class="chip ${hf.trash ? 'on' : ''}" id="htrash" style="--c:#fb7185">${svg('trash', 'style="width:14px;height:14px;vertical-align:-2px"')} Prullenbak</button></div>
       <div class="muted small" style="margin:0 4px 8px">${all.length} tankbeurten · ${eur(sum(all, 'total'))} · ${num(sum(all, 'liters'), 0)} L</div>
       ${list.map(row).join('') || empty(hf.trash ? 'Prullenbak is leeg' : 'Nog geen tankbeurten')}
@@ -194,7 +197,8 @@ V.historiek = {
     $$('.frow [data-act]').forEach((b) => (b.onclick = async () => {
       const id = b.closest('.frow').dataset.id, f = S.fills.find((x) => x.id === id);
       try {
-        if (b.dataset.act === 'trash') { await trashFill(id); toast('Naar prullenbak (herstelbaar)'); }
+        if (b.dataset.act === 'ticket') { const u = await getTicket(f.ticketId); openModal(`<h2>Tankbon <button class="iconbtn" id="mx">${svg('x')}</button></h2>${u ? `<img src="${esc(u)}" alt="tankbon" style="width:100%;border-radius:12px">` : '<p class="muted">Bon niet gevonden.</p>'}`, (box) => ($('#mx', box).onclick = closeModal)); }
+        else if (b.dataset.act === 'trash') { await trashFill(id); toast('Naar prullenbak (herstelbaar)'); }
         else if (b.dataset.act === 'restore') { await trashFill(id, false); toast('Hersteld ✓'); }
         else openModal(`<h2>Tankbeurt bewerken <button class="iconbtn" id="mx">${svg('x')}</button></h2><form id="editForm" novalidate>${formHTML(f)}<button class="btn grad big" type="submit">Opslaan</button></form>`, (box) => {
           const form = $('#editForm', box); bindForm(form, true); $('#mx', box).onclick = closeModal;
@@ -226,7 +230,7 @@ V.stats = {
     const F = activeFills().slice().reverse(), now = new Date();
     mk('sCost', { type: 'bar', data: { labels: F.slice(-30).map((f) => dmy(f.date).slice(0, 5)), datasets: [{ data: F.slice(-30).map((f) => f.total), borderRadius: 6, backgroundColor: (c) => { const f = F.slice(-30)[c.dataIndex]; return f ? vColor(f) : '#8b5cf6'; } }] }, options: { plugins: { legend: { display: false }, tooltip: { callbacks: { title: (i) => { const f = F.slice(-30)[i[0].dataIndex]; return dmyLong(f.date) + ' · ' + vName(f); }, label: (i) => { const f = F.slice(-30)[i.dataIndex]; return [eur(f.total), `${num(f.liters, 1)} L × ${ppl(f.ppl)}`]; } } } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => '€' + v } } } } });
     const months = []; for (let i = 11; i >= 0; i--) months.push(iso(new Date(now.getFullYear(), now.getMonth() - i, 1)).slice(0, 7));
-    mk('sMonth', { type: 'bar', data: { labels: months.map(monthLabel), datasets: S.vehicles.map((v) => ({ label: v.name, backgroundColor: v.color, borderRadius: 4, stack: 's', data: months.map((m) => r2(sum(F.filter((f) => f.vehicleId === v.id && f.date.startsWith(m)), 'total'))) })) }, options: { plugins: { legend: { position: 'bottom' } }, scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, ticks: { callback: (v) => '€' + v } } } } });
+    mk('sMonth', { type: 'bar', data: { labels: months.map(monthLabel), datasets: S.vehicles.map((v) => ({ label: v.name, backgroundColor: HEX(v.color), borderRadius: 4, stack: 's', data: months.map((m) => r2(sum(F.filter((f) => f.vehicleId === v.id && f.date.startsWith(m)), 'total'))) })) }, options: { plugins: { legend: { position: 'bottom' } }, scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, ticks: { callback: (v) => '€' + v } } } } });
     const drawPrice = () => {
       const ds = S.days.filter((d) => d.date >= iso(addDays(now, -sr))), ctx = $('#sPrice')?.getContext('2d'); if (!ctx) return;
       mk('sPrice', { type: 'line', data: { labels: ds.map((d) => dmy(d.date)), datasets: ['euro95', 'euro98', 'diesel'].map((k) => ({ label: fuelLabel(k), data: ds.map((d) => d.p?.[k] ?? null), borderColor: fuelColor(k), backgroundColor: gradient(ctx, fuelColor(k), 340), fill: true, pointRadius: 0, pointHoverRadius: 4, borderWidth: 2, tension: .3, spanGaps: true })) }, options: { interaction: { mode: 'index', intersect: false }, plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: (i) => `${i.dataset.label}: ${ppl(i.parsed.y)} €/L` } } }, scales: { x: { ticks: { maxTicksLimit: 8 }, grid: { display: false } }, y: { ticks: { callback: (v) => v.toFixed(2) } } } } });
@@ -235,7 +239,7 @@ V.stats = {
     const dl = F.map((f) => { const m = priceOn(f.date, f.fuel); return m == null ? null : { f, d: (f.ppl - m) * 100 }; }).filter(Boolean).slice(-40);
     mk('sDelta', { type: 'bar', data: { labels: dl.map((x) => dmy(x.f.date).slice(0, 5)), datasets: [{ data: dl.map((x) => +x.d.toFixed(1)), borderRadius: 4, backgroundColor: dl.map((x) => (x.d <= 0 ? '#34d399' : '#fb7185')) }] }, options: { plugins: { legend: { display: false }, tooltip: { callbacks: { title: (i) => dmyLong(dl[i[0].dataIndex].f.date) + ' · ' + vName(dl[i[0].dataIndex].f), label: (i) => `${num(i.parsed.y, 1)} ct/L vs markt` } } }, scales: { x: { grid: { display: false } } } } });
     const tr = S.vehicles.filter((v) => v.trackConsumption !== false), cf = F.filter((f) => f.consumption != null && tr.some((v) => v.id === f.vehicleId)), dates = [...new Set(cf.map((f) => f.date))].sort();
-    if ($('#sCons')) mk('sCons', { type: 'line', data: { labels: dates.map(dmy), datasets: tr.map((v) => ({ label: v.name, borderColor: v.color, backgroundColor: v.color, pointRadius: 3, borderWidth: 2, tension: .3, spanGaps: true, data: dates.map((d) => cf.find((f) => f.vehicleId === v.id && f.date === d)?.consumption ?? null) })) }, options: { plugins: { legend: { position: 'bottom' } }, scales: { x: { ticks: { maxTicksLimit: 8 }, grid: { display: false } } } } });
+    if ($('#sCons')) mk('sCons', { type: 'line', data: { labels: dates.map(dmy), datasets: tr.map((v) => ({ label: v.name, borderColor: v.color, backgroundColor: HEX(v.color), pointRadius: 3, borderWidth: 2, tension: .3, spanGaps: true, data: dates.map((d) => cf.find((f) => f.vehicleId === v.id && f.date === d)?.consumption ?? null) })) }, options: { plugins: { legend: { position: 'bottom' } }, scales: { x: { ticks: { maxTicksLimit: 8 }, grid: { display: false } } } } });
     const cut = iso(addDays(now, -365)), per = S.vehicles.map((v) => ({ v, t: sum(F.filter((f) => f.vehicleId === v.id && f.date >= cut), 'total') }));
     mk('sVeh', { type: 'doughnut', data: { labels: per.map((x) => x.v.name), datasets: [{ data: per.map((x) => r2(x.t)), backgroundColor: per.map((x) => x.v.color), borderColor: '#0d0d1a', borderWidth: 3 }] }, options: { cutout: '68%', plugins: { legend: { position: 'right' }, tooltip: { callbacks: { label: (i) => `${i.label}: ${eur(i.parsed)}` } } } } });
   },
@@ -283,7 +287,7 @@ V.instellingen = {
   html() {
     const vrow = (v) => `<div class="vrow" data-id="${v.id}"><input name="name" value="${esc(v.name)}" placeholder="Naam"><input name="plate" value="${esc(v.plate || '')}" placeholder="Nummerplaat">
       <select name="fuel">${PUMP_FUELS.map((k) => `<option value="${k}" ${v.fuel === k ? 'selected' : ''}>${fuelLabel(k)}</option>`).join('')}</select>
-      <label class="switch"><input type="checkbox" name="trackConsumption" ${v.trackConsumption !== false ? 'checked' : ''}><span></span>L/100 km</label><input type="color" name="color" value="${v.color || '#8b5cf6'}"></div>`;
+      <label class="switch"><input type="checkbox" name="trackConsumption" ${v.trackConsumption !== false ? 'checked' : ''}><span></span>L/100 km</label><input type="color" name="color" value="${HEX(v.color)}"><label class="btn sm carbtn" title="Transparante PNG van de auto"><input type="file" accept="image/png,image/webp,image/*" hidden>${v.img ? `<img src="${esc(v.img)}" alt="">` : svg('cam')} Auto-foto</label></div>`;
     return `<div class="grid2"><div class="card"><h3>Voertuigen</h3>${S.vehicles.map(vrow).join('')}
       <form id="newV" style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap"><input name="name" placeholder="Nieuw voertuig…" style="flex:1;min-width:140px"><input name="plate" placeholder="Nummerplaat" style="flex:1;min-width:120px"><button class="btn grad" type="submit">Toevoegen</button></form>
       <p class="muted small">Zet <b>L/100 km</b> uit voor voertuigen waarvan je het verbruik niet wil bijhouden: het veld verdwijnt dan bij het tanken.</p></div>
@@ -299,6 +303,7 @@ V.instellingen = {
         const g = (n) => $(`[name=${n}]`, r); try { await saveVehicle(r.dataset.id, { name: g('name').value.trim() || 'Voertuig', plate: g('plate').value.trim(), fuel: g('fuel').value, trackConsumption: g('trackConsumption').checked, color: g('color').value }); toast('Opgeslagen ✓'); } catch (e) { toast(e.message, true); }
       }, 500);
       r.addEventListener('input', save); r.addEventListener('change', save);
+      $('.carbtn input', r).onchange = async (e) => { const f = e.target.files[0]; e.target.value = ''; if (!f) return; try { await saveVehicle(r.dataset.id, { img: await shrinkCar(f) }); toast('Auto-foto opgeslagen ✓'); } catch (err) { toast(err.message, true); } };
     });
     $('#newV').onsubmit = async (e) => {
       e.preventDefault(); const f = e.target, name = f.name.value.trim(); if (!name) return;

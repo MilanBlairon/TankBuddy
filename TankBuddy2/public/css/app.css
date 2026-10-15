@@ -124,3 +124,6 @@ details pre { text-align: left; white-space: pre-wrap; font-size: 11px; color: v
 .auth-card { width: min(420px, 100%); text-align: center; padding: 34px 28px; } .auth-card h1 { margin: 12px 0 4px; font-size: 30px; }
 .auth-card form { text-align: left; margin-top: 22px; } .auth-links { display: flex; justify-content: space-between; margin-top: 16px; font-size: 13px; }
 #authMsg { margin-top: 14px; font-size: 13px; min-height: 18px; } #authMsg.bad { color: var(--red); } #authMsg.ok { color: var(--green); }
+.vcard .car { width: 92px; height: 56px; object-fit: contain; filter: drop-shadow(0 6px 10px color-mix(in srgb, var(--c) 45%, transparent)); flex: none; }
+.carbtn img { width: 34px; height: 20px; object-fit: contain; }
+.vrow { flex-wrap: wrap; }

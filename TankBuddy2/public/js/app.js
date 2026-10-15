@@ -1,5 +1,5 @@
 import { S, onData, startAuth, signIn, signUp, resend, reset, logout, confirmVerified } from './data.js';
-import { $, $$, ago } from './util.js';
+import { $, $$, ago, esc } from './util.js';
 import { initCharts, killCharts } from './charts.js';
 import { V, svg, LOGO, closeModal } from './views.js';
 
@@ -22,7 +22,7 @@ function authScreen(mode = 'in') {
 }
 function verifyScreen(user) {
   $('#app').hidden = true; const a = $('#auth'); a.hidden = false;
-  a.innerHTML = `<div class="card auth-card"><div class="logo-big" style="margin:auto">${LOGO}</div><h1>Bevestig je e-mail</h1><p class="muted">We stuurden een bevestigingslink naar<br><b style="color:var(--text)">${user.email}</b>.<br>Klik op de link (check ook spam) en kom dan terug.</p>
+  a.innerHTML = `<div class="card auth-card"><div class="logo-big" style="margin:auto">${LOGO}</div><h1>Bevestig je e-mail</h1><p class="muted">We stuurden een bevestigingslink naar<br><b style="color:var(--text)">${esc(user.email)}</b>.<br>Klik op de link (check ook spam) en kom dan terug.</p>
     <button class="btn grad big" id="vd">Ik heb bevestigd</button><button class="btn big" id="vr">Mail opnieuw sturen</button><div class="auth-links"><a id="vo">Uitloggen</a></div><div id="authMsg"></div></div>`;
   $('#vd').onclick = async () => { await confirmVerified(); };
   $('#vr').onclick = async () => { try { await resend(); authMsg('Verstuurd ✓', 'ok'); } catch (x) { authMsg(ERR[x.code] || x.message, 'bad'); } };
@@ -46,7 +46,7 @@ function render(full = true) {
   const m = S.meta?.lastRun, hrs = m ? (Date.now() - (m.toDate ? m.toDate() : new Date(m))) / 36e5 : 99;
   $('#status').innerHTML = `<i class="dot ${hrs > 36 ? 'old' : ''}"></i><span class="lbl">Prijzen: ${ago(m)}</span>`;
   $('#sideFoot').innerHTML = `${S.demo ? 'DEMO · ' : ''}${S.user?.email || ''}<br>${S.stations.length} stations · ${S.fills.filter((f) => !f.deleted).length} tankbeurten`;
-  $('#err').innerHTML = S.error ? `<div class="banner">${S.error}</div>` : '';
+  $('#err').innerHTML = S.error ? `<div class="banner">${esc(S.error)}</div>` : '';
   if (!full) return;
   killCharts(); $('#view').innerHTML = v.html(); v.after?.(); scrollTo(0, 0);
 }

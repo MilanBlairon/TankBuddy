@@ -1,7 +1,7 @@
 // Firebase data layer: auth, live listeners, CRUD. `#demo` hash = read-only demo from demo.json (local testing only).
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signOut } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, collection, doc, onSnapshot, addDoc, updateDoc, setDoc, serverTimestamp, query, orderBy, limit, getDocs, documentId } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { initializeAuth, browserLocalPersistence, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signOut } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, collection, doc, onSnapshot, addDoc, updateDoc, setDoc, getDoc, terminate, clearIndexedDbPersistence, serverTimestamp, query, orderBy, limit, getDocs, documentId } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { firebaseConfig } from './config.js';
 import { r2 } from './util.js';
 
@@ -12,7 +12,7 @@ export const onData = (f) => subs.add(f);
 const fire = () => { clearTimeout(tm); tm = setTimeout(() => subs.forEach((f) => f()), 40); };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const auth = initializeAuth(app, { persistence: browserLocalPersistence }); // no popup/redirect resolver => no third-party iframe/scripts (strict CSP)
 const db = initializeFirestore(app, { localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }) });
 const guard = () => { if (S.demo) throw new Error('Demo-modus: opslaan staat uit'); };
 
@@ -58,13 +58,19 @@ export const signIn = (e, p) => signInWithEmailAndPassword(auth, e, p);
 export const signUp = async (e, p) => { const c = await createUserWithEmailAndPassword(auth, e, p); await sendEmailVerification(c.user); };
 export const resend = () => sendEmailVerification(auth.currentUser);
 export const reset = (e) => sendPasswordResetEmail(auth, e);
-export const logout = () => signOut(auth);
+export async function logout() { // also wipe the offline data cache so nothing stays on a shared device
+  await signOut(auth);
+  try { await terminate(db); await clearIndexedDbPersistence(db); } catch {}
+  location.reload();
+}
 export async function confirmVerified() { await auth.currentUser.reload(); await auth.currentUser.getIdToken(true); location.reload(); }
 
 // ---- writes (soft delete only: nothing is ever physically removed)
 export async function addFill(o) { guard(); return addDoc(collection(db, 'fillups'), { ...o, total: r2(o.liters * o.ppl), src: o.src || 'manual', createdAt: serverTimestamp() }); }
 export async function updateFill(id, o) { guard(); if (o.liters != null && o.ppl != null) o.total = r2(o.liters * o.ppl); return updateDoc(doc(db, 'fillups', id), { ...o, updatedAt: serverTimestamp() }); }
 export const trashFill = (id, flag = true) => updateFill(id, { deleted: flag });
+export async function saveTicket(img) { guard(); return (await addDoc(collection(db, 'tickets'), { img, createdAt: serverTimestamp() })).id; }
+export async function getTicket(id) { const d = await getDoc(doc(db, 'tickets', id)); return d.exists() ? d.data().img : null; }
 export async function saveVehicle(id, o) { guard(); return setDoc(doc(db, 'vehicles', id), o, { merge: true }); }
 
 export async function stationDays(id, n = 120) {

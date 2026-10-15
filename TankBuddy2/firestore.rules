@@ -1,14 +1,45 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Single-user data: only verified owner e-mail(s). Add family e-mails to the list below.
+    // Single-user data: only the verified owner e-mail(s). Add family e-mails to the list below.
     function owner() {
       return request.auth != null
         && request.auth.token.email_verified == true
         && request.auth.token.email in ['milan.blairon@gmail.com'];
     }
-    match /{document=**} {
-      allow read, write: if owner();
+    function img(max) {
+      return request.resource.data.img is string
+        && request.resource.data.img.matches('^data:image/(jpeg|png|webp);base64,.*')
+        && request.resource.data.img.size() < max;
     }
+
+    // Prices/stations/meta are written only by the scraper (Admin SDK bypasses rules): the app may only read.
+    match /stations/{s} { allow read: if owner(); }
+    match /stations/{s}/days/{d} { allow read: if owner(); }
+    match /meta/{m} { allow read: if owner(); }
+
+    // Nothing is ever hard-deleted from the app (soft delete flag only).
+    match /fillups/{id} {
+      allow read: if owner();
+      allow create, update: if owner()
+        && request.resource.data.liters is number && request.resource.data.liters > 0 && request.resource.data.liters <= 500
+        && request.resource.data.ppl is number && request.resource.data.ppl > 0 && request.resource.data.ppl <= 10
+        && request.resource.data.total is number && request.resource.data.total >= 0 && request.resource.data.total <= 5000
+        && request.resource.data.fuel in ['euro95', 'euro98', 'diesel', 'lpg', 'cng']
+        && request.resource.data.date is string && request.resource.data.date.size() == 10
+        && request.resource.data.vehicleId is string;
+    }
+    match /vehicles/{id} {
+      allow read: if owner();
+      allow create, update: if owner()
+        && request.resource.data.name is string && request.resource.data.name.size() <= 60
+        && (!('img' in request.resource.data) || request.resource.data.img == null || img(450000));
+    }
+    // Ticket photos (720p JPEG, ~100 KB) live in Firestore because Firebase Storage requires a paid plan.
+    match /tickets/{id} {
+      allow read: if owner();
+      allow create: if owner() && img(700000);
+    }
+    // Everything else is closed.
   }
 }

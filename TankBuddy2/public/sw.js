@@ -1,5 +1,5 @@
 // App-shell cache: opens instantly and works offline (data itself is cached by Firestore's IndexedDB cache).
-const C = 'tb-v1';
+const C = 'tb-v2';
 const SHELL = ['./', 'index.html', 'css/app.css', 'js/app.js', 'js/views.js', 'js/data.js', 'js/charts.js', 'js/ocr.js', 'js/util.js', 'js/config.js', 'manifest.webmanifest', 'icons/icon-192.png'];
 const CDN = ['cdn.jsdelivr.net', 'www.gstatic.com', 'fonts.googleapis.com', 'fonts.gstatic.com'];
 self.addEventListener('install', (e) => e.waitUntil(caches.open(C).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting())));

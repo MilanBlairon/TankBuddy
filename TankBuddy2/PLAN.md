@@ -79,3 +79,8 @@ Near-black (#0a0a12) background, glass cards (1px translucent border, blur), neo
 - Optional: GitHub Actions cron so prices also download when the PC is off; push alerts; odometer/km cost; Google sign-in.
 - `tools/node_modules` sits inside OneDrive (syncs lots of small files); harmless but could be excluded.
 - Git: nothing committed yet (new folder `TankBuddy2/` + `.gitignore` entries are uncommitted).
+
+## 7. Update 2026-10-15 (security + images)
+- Rules: client is read-only for stations/meta; fillups/vehicles/tickets validated, no client deletes. Headers: strict CSP, HSTS, X-Frame-Options DENY, nosniff, no-referrer. SRI on Chart.js/Tesseract. Auth uses no popup iframe. Logout wipes offline cache.
+- Ticket photo: camera or file, downscaled to 1280px JPEG, stored in Firestore `tickets/{id}` (Firebase Storage needs Blaze). Car photo: `vehicles/{id}.img` (WebP/PNG with alpha, ≤480px), set in Instellingen.
+- Old WPF app stays (user decision).

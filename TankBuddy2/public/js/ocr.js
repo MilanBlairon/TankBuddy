@@ -1,8 +1,9 @@
 // Fuel-ticket OCR: Tesseract.js (lazy-loaded, runs fully in the browser, free). parseTicket() is pure => unit-testable in Node.
 const TESS = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';
+const TESS_SRI = 'sha384-GJqSu7vueQ9qN0E9yLPb3Wtpd7OrgK8KmYzC8T1IysG1bcvxvIO4qtYR/D3A991F';
 
 function loadScript(src) {
-  return new Promise((ok, no) => { if (window.Tesseract) return ok(); const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = () => no(new Error('OCR-bibliotheek kon niet laden (internet nodig bij 1e gebruik)')); document.head.appendChild(s); });
+  return new Promise((ok, no) => { if (window.Tesseract) return ok(); const s = document.createElement('script'); s.src = src; s.integrity = TESS_SRI; s.crossOrigin = 'anonymous'; s.onload = ok; s.onerror = () => no(new Error('OCR-bibliotheek kon niet laden (internet nodig bij 1e gebruik)')); document.head.appendChild(s); });
 }
 
 // grayscale + contrast stretch + upscale small photos => much better thermal-paper recognition
@@ -55,4 +56,25 @@ export function parseTicket(text, stations = []) {
   const s = stations.find((x) => x.city && lt.includes(x.city.toLowerCase()));
   if (s) out.stationId = s.id;
   return out;
+}
+
+// Downscale to max 1280px on the long side (= 720p) as JPEG; stored in Firestore (Firebase Storage needs a paid plan). ~100 KB.
+async function toDataUrl(file, maxSide, types, q) {
+  const bmp = await createImageBitmap(file), k = Math.min(1, maxSide / Math.max(bmp.width, bmp.height));
+  const c = document.createElement('canvas'); c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+  c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+  for (const t of types) { const u = c.toDataURL(t, q); if (u.startsWith('data:' + t)) return u; }
+  return c.toDataURL();
+}
+export async function shrinkTicket(file) {
+  let u = await toDataUrl(file, 1280, ['image/jpeg'], 0.72);
+  if (u.length > 600000) u = await toDataUrl(file, 960, ['image/jpeg'], 0.6);
+  return u;
+}
+// Car picture: keeps transparency (WebP, falls back to PNG), max 480px wide.
+export async function shrinkCar(file) {
+  let u = await toDataUrl(file, 480, ['image/webp', 'image/png'], 0.9);
+  if (u.length > 300000) u = await toDataUrl(file, 320, ['image/webp', 'image/png'], 0.8);
+  if (u.length > 400000) throw new Error('Afbeelding te groot, kies een kleinere.');
+  return u;
 }
